@@ -31,4 +31,9 @@ public class SideScrollerCamera : MonoBehaviour
         Vector3 camPosition = transform.position;
         Gizmos.DrawWireCube(new Vector3(camPosition.x - _offsetPosition.x, camPosition.y - _offsetPosition.y, _target.position.z), _staticArea * 2);
     }
+
+    public void SetTarget(Transform newTarget)
+    {
+        _target = newTarget;
+    }
 }

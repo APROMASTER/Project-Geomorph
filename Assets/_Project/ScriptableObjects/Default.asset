@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 647610592906fd94a802ac42ec6f11d3, type: 3}
-  m_Name: Box
+  m_Name: Default
   m_EditorClassIdentifier: 
-  LearnedPrefab: {fileID: 4531218992720588970, guid: 77697fdf5525b5e4eb2b4c42789b5f58,
+  LearnedPrefab: {fileID: 3396445016727359314, guid: b97dce279ba71cd49be712556bf4ce18,
     type: 3}
