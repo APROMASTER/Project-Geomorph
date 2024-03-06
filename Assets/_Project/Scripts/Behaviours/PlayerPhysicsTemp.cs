@@ -3,23 +3,33 @@ using UnityEngine;
 public class PlayerPhysicsTemp : MonoBehaviour
 {
     Rigidbody _rigidbody;
+    public Vector3 BodyPosition { get => _rigidbody.position; set => _rigidbody.position = value; }
     public enum PlayerStates {Standing, Jumping, Falling, Stomping, OnInteraction, Dead}
     public enum PlayerModules {Sphere, Cube, Pyramid}
-    [SerializeField] float _moveSpeed = 100, _jumpHeight = 30, _stompSpeed, _gravityScale = 1;
+    [SerializeField] float _moveSpeed = 100, _jumpHeight = 30, _stompSpeed, _gravityScale = 1, _invincibleTime = 2;
     [SerializeField] int _jumpCount, _maxJumps = 1;
     [SerializeField] PlayerStates _currentState = PlayerStates.Standing;
     [SerializeField] PlayerModules _currentModule = PlayerModules.Sphere;
-    float _playerInput, _jumpScale;
-    Vector3 _moveVelocity, _fallVelocity;   
+    [SerializeField] string killObstacleTag = "Untagged";
+    bool _isGrounded, _isRoofed;
+    float _playerInput, _jumpScale, _currentInvincibleTime;
+    Vector3 _moveVelocity, _fallVelocity, _groundNormal;
+
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _currentInvincibleTime = _invincibleTime;
     }
 
     void Update()
     {
         _playerInput = Input.GetAxisRaw("Horizontal");
+
+        if (_currentInvincibleTime < _invincibleTime)
+        {
+            _currentInvincibleTime += Time.deltaTime;
+        }
     }
 
     void FixedUpdate() 
@@ -95,6 +105,11 @@ public class PlayerPhysicsTemp : MonoBehaviour
             {
                 speedScale = 0;
             } break;
+
+            case PlayerStates.Dead:
+            {
+                speedScale = 0;
+            } break;
         }
         _moveVelocity = _playerInput * _moveSpeed * speedScale * Time.fixedDeltaTime * Vector3.right;
         
@@ -120,6 +135,17 @@ public class PlayerPhysicsTemp : MonoBehaviour
         }
     }
 
+    void DieAction()
+    {
+        GameEvents.Instance.PlayerDies();
+    }
+
+    public void Revive()
+    {
+        _currentState = PlayerStates.Standing;
+        _jumpCount = 0;
+    }
+
     bool CheckGround()
     {
         if (Physics.Raycast(transform.position, -transform.up, 0.5f)) 
@@ -128,4 +154,53 @@ public class PlayerPhysicsTemp : MonoBehaviour
         }
         return false;
     }
+
+    private void OnCollisionEnter(Collision other) 
+    {
+        OnValidateCollision(other);
+    }
+
+    private void OnCollisionStay(Collision other) 
+    {
+        OnValidateCollision(other);
+    }
+
+    private void OnTriggerStay(Collider other) 
+    {
+        if (other.gameObject.CompareTag(killObstacleTag))
+        {
+            if (_currentState == PlayerStates.Dead || _currentInvincibleTime < _invincibleTime) return;
+
+            DieAction();
+            _currentInvincibleTime = 0;
+            _currentState = PlayerStates.Dead;
+        }
+    }
+
+    private void OnValidateCollision(Collision other)
+    {
+        _groundNormal = Vector2.zero;
+
+        for (int i = 0; i < other.contactCount; i++) {
+			Vector3 normal = other.GetContact(i).normal;
+			if (normal.y >= 0.4f) {
+				// groundContactCount += 1;
+				_groundNormal += normal;
+                _isGrounded = true;
+			}
+            else if (normal.y < -0.4f) {
+				_isRoofed = true;
+                // steepContactCount += 1;
+				// steepNormal += normal;
+			}
+		}
+        
+        // if (Vector2.Angle(_groundNormal, Vector2.down) < 30f)
+        // {
+            
+        //     //_isGrounded = true;
+        // }
+        if (_groundNormal == Vector3.zero) _groundNormal = Vector2.up;
+    }
+
 }
