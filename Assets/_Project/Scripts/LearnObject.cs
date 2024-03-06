@@ -75,7 +75,7 @@ public class LearnObject : MonoBehaviour
 
     private void OnDrawGizmos() 
     {
-        Gizmos.DrawWireSphere(transform.position, 0.5f);
+        // Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
     
 }

@@ -8,8 +8,8 @@ public class PlayerConversionController : MonoBehaviour
     [SerializeField] float _conversionDuration;
     [SerializeField] LearnObject _learnObject;
     [SerializeField] private SideScrollerCamera _camera;
-    [SerializeField] private UnityEvent _onChooseBegin;
-    [SerializeField] private UnityEvent _onChooseEnd;
+    [SerializeField] private UnityEvent _onConversionBegin;
+    [SerializeField] private UnityEvent _onConversionEnd;
     [SerializeField] private GameObject _currentForm;
     private bool _canConvert = true;
 
@@ -36,6 +36,7 @@ public class PlayerConversionController : MonoBehaviour
     IEnumerator Convert(GameObject newForm)
     {
         _canConvert = false;
+        _onConversionBegin?.Invoke();
         GameObject newFormObject;
         if (newForm != _learnObject.gameObject)
         {
@@ -60,12 +61,12 @@ public class PlayerConversionController : MonoBehaviour
         }
 
         float progress = 0;
-        while (progress < _conversionDuration)
+        while (progress < 1)
         {
             _currentForm.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, progress);
             newFormObject.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, progress);
 
-            progress += Time.deltaTime;
+            progress += Time.deltaTime / _conversionDuration;
             yield return null;
         }
         _currentForm.transform.localScale = Vector3.zero;
@@ -83,17 +84,8 @@ public class PlayerConversionController : MonoBehaviour
         _currentForm = newFormObject;
         newBody.simulated = true;
         _camera.SetTarget(newFormObject.transform);
+        _onConversionEnd.Invoke();
         _canConvert = true;
         yield return null;
-    }
-
-    public void ChooseForm()
-    {
-        _onChooseBegin?.Invoke();
-    }
-
-    void Confirm()
-    {
-        _onChooseEnd?.Invoke();
     }
 }

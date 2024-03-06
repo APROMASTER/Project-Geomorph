@@ -5,8 +5,8 @@ public class PlatformerBody : MonoBehaviour
 {
     [SerializeField] private float _gravityScale = 1;
     private Rigidbody2D _body;
-    private bool _onGround, _isAsleep;
-    private Vector2 _velocity, _desiredMovement, _fallVelocity;
+    private bool _onGround, _onWall, _isAsleep;
+    private Vector2 _velocity, _desiredMovement, _fallVelocity, _wallNormal;
     private void Awake() => _body = GetComponent<Rigidbody2D>();
 
     private void FixedUpdate()
@@ -19,11 +19,20 @@ public class PlatformerBody : MonoBehaviour
         }
 
         _fallVelocity += _gravityScale * Time.fixedDeltaTime * Physics2D.gravity;
-        
+        // _fallVelocity -= _desiredMovement;
+
         if (_onGround)
         {
             //Debug.Log("Grounded");
             if (Vector2.Dot(_fallVelocity, Physics2D.gravity) > 0) _fallVelocity = Vector2.zero;
+        }
+        else if (_onWall)
+        {
+            if (Vector2.Dot(_fallVelocity, Physics2D.gravity) > 0)
+            {
+                
+                _fallVelocity = Vector2.ClampMagnitude(_fallVelocity, 2f);
+            }
         }
         
 
@@ -35,6 +44,7 @@ public class PlatformerBody : MonoBehaviour
     private void ClearState()
     {
         _onGround = false;
+        _onWall = false;
     }
 
     private void OnCollisionEnter2D(Collision2D other) => EvaluateCollision(other);
@@ -44,6 +54,11 @@ public class PlatformerBody : MonoBehaviour
         for (int i = 0; i < other.contactCount; i++)
         {
             if (Vector2.Dot(other.GetContact(i).normal, Vector2.up) > 0.5f) _onGround = true;
+            if (Mathf.Abs(Vector2.Dot(other.GetContact(i).normal, Vector2.up)) < 0.3f) 
+            {
+                _onWall = true;
+                _wallNormal = other.GetContact(i).normal;
+            }
         }
     }
 
@@ -51,9 +66,14 @@ public class PlatformerBody : MonoBehaviour
 
     public void Jump(float jumpHeight) 
     {
-        if (_onGround) {
+        if (_onGround) 
+        {
 			_fallVelocity = jumpHeight * _gravityScale * -Physics2D.gravity.normalized;
 		}
+        else if (_onWall)
+        {
+            _fallVelocity = jumpHeight * _gravityScale * (-Physics2D.gravity.normalized + (_wallNormal * 0.6f)).normalized;
+        }
     }
 
     public void DoArtificialJump(float jumpHeight)
