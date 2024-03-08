@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class LearnableObject : InteractableObject
 {
-    public LearnableObjectData Data;
-    [HideInInspector] public Collider Collider;
-    [HideInInspector] public Collider2D Collider2D;
+    [SerializeField] private LearnableObjectData _learnableData;
+    public LearnableObjectData LearnableData { get => _learnableData; }
+    public Collider2D Collider2D { get => GetComponent<Collider2D>(); }
 
     public override void Interact(Transform interactor)
     {
@@ -12,11 +12,5 @@ public class LearnableObject : InteractableObject
         {
             learnComponent.Learn(this);
         }
-    }
-
-    private void Start() 
-    {
-        Collider = GetComponent<Collider>();
-        Collider2D = GetComponent<Collider2D>();
     }
 }

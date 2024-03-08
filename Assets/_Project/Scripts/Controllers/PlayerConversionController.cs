@@ -1,56 +1,53 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerConversionController : MonoBehaviour
 {
-    [SerializeField] float _conversionDuration;
-    [SerializeField] LearnObject _learnObject;
+    [SerializeField] LearnObject _playerInstance;
     [SerializeField] private SideScrollerCamera _camera;
+    [SerializeField] float _conversionDuration;
     [SerializeField] private UnityEvent _onConversionBegin;
     [SerializeField] private UnityEvent _onConversionEnd;
-    [SerializeField] private GameObject _currentForm;
+    private LearnableObjectData _currentForm;
+    public LearnableObjectData CurrentForm { get => _currentForm; }
+    private GameObject _currentInstance;
     private bool _canConvert = true;
 
     private void Start() 
     {
-        _currentForm = _learnObject.gameObject;
+        _currentForm = _playerInstance.LearnableData;
+        _currentInstance = _playerInstance.gameObject;
     }
     
-    private void Update()
+    public void ConvertTo(LearnableObjectData nextForm)
     {
-        if (!_canConvert || _learnObject.LearnedObjects.Count == 0) return;
+        if (!_canConvert 
+        || _playerInstance.LearnedObjects.Count == 0 
+        || nextForm == _currentForm) 
+        return;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            StartCoroutine(Convert(_learnObject.LearnedObjects[0].Data.LearnedPrefab));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            StartCoroutine(Convert(_learnObject.gameObject));
-        }
+        StartCoroutine(ConversionRoutine(nextForm));
     }
 
-    IEnumerator Convert(GameObject newForm)
+    IEnumerator ConversionRoutine(LearnableObjectData newForm)
     {
         _canConvert = false;
         _onConversionBegin?.Invoke();
         GameObject newFormObject;
-        if (newForm != _learnObject.gameObject)
+        if (newForm != _playerInstance.LearnableData)
         {
-            newFormObject = Instantiate(newForm, _learnObject.transform.position, _learnObject.transform.rotation);
+            newFormObject = Instantiate(newForm.LearnedEntity.gameObject, _currentInstance.transform.position, Quaternion.identity);
         }
         else
         {
-            newFormObject = _learnObject.gameObject;
-            newFormObject.transform.position = _currentForm.transform.position;
+            newFormObject = _playerInstance.gameObject;
+            newFormObject.transform.position = _currentInstance.transform.position;
             newFormObject.SetActive(true);
         }
         newFormObject.transform.localScale = Vector3.zero;
 
-        if (_currentForm.TryGetComponent(out Rigidbody2D currentBody))
+        if (_currentInstance.TryGetComponent(out Rigidbody2D currentBody))
         {
             currentBody.simulated = false;
         }
@@ -63,29 +60,46 @@ public class PlayerConversionController : MonoBehaviour
         float progress = 0;
         while (progress < 1)
         {
-            _currentForm.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, progress);
+            _currentInstance.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, progress);
             newFormObject.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, progress);
 
             progress += Time.deltaTime / _conversionDuration;
             yield return null;
         }
-        _currentForm.transform.localScale = Vector3.zero;
+        _currentInstance.transform.localScale = Vector3.zero;
         newFormObject.transform.localScale = Vector3.one;
 
-        if (_currentForm != _learnObject.gameObject)
+        if (_currentInstance != _playerInstance.gameObject)
         {
-            Destroy(_currentForm);
+            Destroy(_currentInstance);
         }
         else 
         {
-            _currentForm.SetActive(false);
+            _currentInstance.SetActive(false);
         }
-
-        _currentForm = newFormObject;
-        newBody.simulated = true;
+        
+        _currentForm = newForm;
+        _currentInstance = newFormObject;
+        if (newBody != null) newBody.simulated = true;
         _camera.SetTarget(newFormObject.transform);
         _onConversionEnd.Invoke();
         _canConvert = true;
         yield return null;
+    }
+
+    public void StopPlayer()
+    {
+        if (_currentInstance.TryGetComponent(out Rigidbody2D _body))
+        {
+            _body.simulated = false;
+        }
+    }
+
+    public void ReleasePlayer()
+    {
+        if (_currentInstance.TryGetComponent(out Rigidbody2D _body))
+        {
+            _body.simulated = true;
+        }
     }
 }

@@ -35,8 +35,8 @@ public class PlatformerBody : MonoBehaviour
             }
         }
         
-
-        _velocity = (_desiredMovement * Time.fixedDeltaTime) + _fallVelocity;
+        _velocity = _fallVelocity;
+        _velocity += Time.fixedDeltaTime * _desiredMovement;
         _body.velocity = _velocity;
         ClearState();
     }

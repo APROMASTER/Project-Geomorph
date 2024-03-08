@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647610592906fd94a802ac42ec6f11d3, type: 3}
   m_Name: Box
   m_EditorClassIdentifier: 
-  LearnedPrefab: {fileID: 4531218992720588970, guid: 77697fdf5525b5e4eb2b4c42789b5f58,
+  LearnedEntity: {fileID: 51126722706393566, guid: 77697fdf5525b5e4eb2b4c42789b5f58,
     type: 3}
