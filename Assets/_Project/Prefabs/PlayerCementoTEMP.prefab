@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -8540546682265808712}
   - component: {fileID: -4380789899584815413}
   - component: {fileID: 3874669379889167169}
+  - component: {fileID: 4399912939792757733}
   - component: {fileID: 8799628707895826871}
   m_Layer: 0
   m_Name: PlayerCementoTEMP
@@ -171,6 +172,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d63a964963e6e40b4740c476502653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4399912939792757733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7460025034905082232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbdd5fe2b449d3488566a496558b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onlyEventDriven: 0
+  _onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  _onWake:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8799628707895826871
 MonoBehaviour:
   m_ObjectHideFlags: 0

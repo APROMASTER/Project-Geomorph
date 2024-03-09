@@ -5,6 +5,7 @@ public class UIRotator2D : MonoBehaviour
 {
     [SerializeField] private AnimationCurve _rotationCurve = AnimationCurve.Linear(0, 0, 1, 1); 
     [SerializeField] private float _duration = 1f;
+    [SerializeField] private UpdateUtils.UpdateType _updateType = UpdateUtils.UpdateType.Delta;
     private Quaternion _previousRotation;
     private Coroutine _rotationCoroutine;
     public void RotateToInAngles(float angles)
@@ -41,7 +42,7 @@ public class UIRotator2D : MonoBehaviour
         while (progress < 1)
         {
             transform.rotation = Quaternion.Slerp(initialRotation, finalRotation, _rotationCurve.Evaluate(progress));
-            progress += Time.deltaTime * deltaProgress;
+            progress += UpdateUtils.UpdateBy(_updateType) * deltaProgress;
             yield return null;
         }
         transform.rotation = finalRotation;

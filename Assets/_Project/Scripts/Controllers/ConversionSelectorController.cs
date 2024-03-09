@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -72,7 +71,7 @@ public class ConversionSelectorController : MonoBehaviour
         while (progress < 1)
         {
             //Transition Event?
-            progress += Time.deltaTime * deltaProgress;
+            progress += Time.unscaledDeltaTime * deltaProgress;
             yield return null;
         }
         _canToggleMenu = true;
@@ -99,7 +98,7 @@ public class ConversionSelectorController : MonoBehaviour
         while (progress < 1)
         {
             //Transition Event?
-            progress += Time.deltaTime * deltaProgress;
+            progress += Time.unscaledDeltaTime * deltaProgress;
             yield return null;
         }
         _selection = newSelection;

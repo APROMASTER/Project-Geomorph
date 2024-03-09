@@ -399,7 +399,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 4964730333372378305}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 635486063}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3744ad3a3d8bac4394504f47d419683, type: 3}
@@ -411,7 +411,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 4964730333372378305}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 635486063}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 387a6ae70d15a8f4d93250e65bf5228c, type: 3}
@@ -1125,6 +1125,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &402152893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 402152895}
+  - component: {fileID: 402152896}
+  m_Layer: 0
+  m_Name: PauseController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &402152895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402152893}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &402152896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402152893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf8d4f6f57845e45b8047694409b1aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &403242579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,18 +1535,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 180876220}
-        m_TargetAssemblyTypeName: PlatformerBody, Assembly-CSharp
-        m_MethodName: Sleep
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 597204694}
         m_TargetAssemblyTypeName: ConversionSelectorUIController, Assembly-CSharp
         m_MethodName: OpeningSelector
@@ -1519,6 +1551,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 402152896}
+        m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1554,22 +1598,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 180876220}
-        m_TargetAssemblyTypeName: PlatformerBody, Assembly-CSharp
-        m_MethodName: WakeUp
-        m_Mode: 1
+      - m_Target: {fileID: 864830084}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 864830084}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 402152896}
+        m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
+        m_MethodName: Resume
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1908,6 +1952,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &635486063 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3396445016727359314, guid: b97dce279ba71cd49be712556bf4ce18,
+    type: 3}
+  m_PrefabInstance: {fileID: 4964730333372378305}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &658990218 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8249072205810583509, guid: dfdb4a2aca83d2040a7c8f5dd1b36edd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1654207878705435383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &658990224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658990218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbdd5fe2b449d3488566a496558b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onlyEventDriven: 0
+  _onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  _onWake:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &718670548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2882,7 +2957,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1028808960
 GameObject:
@@ -3542,6 +3617,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735846777}
   m_CullTransparentMesh: 1
+--- !u!1 &1767603440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7460025034905082232, guid: f722a608bc7d9ea4e8232faf95cf963e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5755805301878349015}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1767603446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767603440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbdd5fe2b449d3488566a496558b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onlyEventDriven: 0
+  _onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  _onWake:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1769057858
 GameObject:
   m_ObjectHideFlags: 0
@@ -3907,12 +4007,55 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 4964730333372378305}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 635486063}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21d787987f7db5a43a1f5429bd674ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1877731761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635486063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbdd5fe2b449d3488566a496558b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onlyEventDriven: 1
+  _onSleep:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 180876220}
+        m_TargetAssemblyTypeName: PlatformerBody, Assembly-CSharp
+        m_MethodName: Sleep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onWake:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 180876220}
+        m_TargetAssemblyTypeName: PlatformerBody, Assembly-CSharp
+        m_MethodName: WakeUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1894730249
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,6 +4455,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _duration: 0.3
+  _updateType: 1
 --- !u!1001 &1654207878705435383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4399,7 +4543,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8249072205810583509, guid: dfdb4a2aca83d2040a7c8f5dd1b36edd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 658990224}
   m_SourcePrefab: {fileID: 100100000, guid: dfdb4a2aca83d2040a7c8f5dd1b36edd, type: 3}
 --- !u!1001 &4964730333372378305
 PrefabInstance:
@@ -4464,6 +4612,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2332294950868429874, guid: b97dce279ba71cd49be712556bf4ce18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2631324582827729917, guid: b97dce279ba71cd49be712556bf4ce18,
         type: 3}
       propertyPath: _onLearnEnd.m_PersistentCalls.m_Calls.Array.data[4].m_Target
@@ -4482,7 +4635,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3396445016727359314, guid: b97dce279ba71cd49be712556bf4ce18,
+        type: 3}
+      insertIndex: 8
+      addedObject: {fileID: 1877731761}
   m_SourcePrefab: {fileID: 100100000, guid: b97dce279ba71cd49be712556bf4ce18, type: 3}
 --- !u!1001 &5755805301878349015
 PrefabInstance:
@@ -4561,5 +4718,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7460025034905082232, guid: f722a608bc7d9ea4e8232faf95cf963e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1767603446}
   m_SourcePrefab: {fileID: 100100000, guid: f722a608bc7d9ea4e8232faf95cf963e, type: 3}
