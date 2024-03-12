@@ -89,13 +89,13 @@ public class PlatformerBody : MonoBehaviour
     public void Sleep()
     {
         _isAsleep = true;
-        _body.isKinematic = true;
+        // _body.isKinematic = true;
     }
 
     public void WakeUp()
     {
         _isAsleep = false;
-        _body.isKinematic = false;
+        // _body.isKinematic = false;
         _body.WakeUp();
     }
 }

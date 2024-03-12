@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class PlayerConversionController : MonoBehaviour
 {
     [SerializeField] LearnObject _playerInstance;
+    [SerializeField] LearnedObjectData _learnedObjects;
     [SerializeField] private SideScrollerCamera _camera;
     [SerializeField] float _conversionDuration;
     [SerializeField] private UnityEvent _onConversionBegin;
@@ -23,7 +24,7 @@ public class PlayerConversionController : MonoBehaviour
     public void ConvertTo(LearnableObjectData nextForm)
     {
         if (!_canConvert 
-        || _playerInstance.LearnedObjects.Count == 0 
+        || _learnedObjects.LearnedObjects.Count == 0 
         || nextForm == _currentForm) 
         return;
 
@@ -49,12 +50,12 @@ public class PlayerConversionController : MonoBehaviour
 
         if (_currentInstance.TryGetComponent(out Rigidbody2D currentBody))
         {
-            currentBody.simulated = false;
+            currentBody.isKinematic = true;
         }
 
         if (newFormObject.TryGetComponent(out Rigidbody2D newBody))
         {
-            newBody.simulated = false;
+            newBody.isKinematic = true;
         }
 
         float progress = 0;
@@ -64,6 +65,9 @@ public class PlayerConversionController : MonoBehaviour
             newFormObject.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, progress);
 
             progress += Time.deltaTime / _conversionDuration;
+
+            if (currentBody != null) currentBody.velocity = Vector2.zero;
+            if (newBody != null) newBody.velocity = Vector2.zero;
             yield return null;
         }
         _currentInstance.transform.localScale = Vector3.zero;
@@ -80,7 +84,7 @@ public class PlayerConversionController : MonoBehaviour
         
         _currentForm = newForm;
         _currentInstance = newFormObject;
-        if (newBody != null) newBody.simulated = true;
+        if (newBody != null) newBody.isKinematic = false;
         _camera.SetTarget(newFormObject.transform);
         _onConversionEnd.Invoke();
         _canConvert = true;

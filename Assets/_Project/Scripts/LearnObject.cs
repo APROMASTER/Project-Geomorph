@@ -8,7 +8,7 @@ public class LearnObject : MonoBehaviour
 {
     [SerializeField] private LearnableObjectData _learnableData;
     public LearnableObjectData LearnableData { get => _learnableData; }
-    public List<LearnableObjectData> LearnedObjects = new List<LearnableObjectData>();
+    [SerializeField] private LearnedObjectData _learnedObjects;
     [SerializeField] private float _enteringTime = 0.5f;
     [SerializeField] private float _learningTime = 1f;
     [SerializeField] private float _exitingTime = 0.15f;
@@ -25,7 +25,7 @@ public class LearnObject : MonoBehaviour
     public void Learn(LearnableObject learnableObject)
     {
         // Check the LearnableData
-        if (LearnedObjects.Find(x => x == learnableObject.LearnableData) != null 
+        if (_learnedObjects.LearnedObjects.Find(x => x == learnableObject.LearnableData) != null 
         || !_canLearn) 
             return;
 
@@ -74,7 +74,7 @@ public class LearnObject : MonoBehaviour
         yield return new WaitForSeconds(_learningTime);
 
         progress = 0;
-        LearnedObjects.Add(objectToLearn.LearnableData);
+        _learnedObjects.LearnedObjects.Add(objectToLearn.LearnableData);
         initialPosition = transform.position;
         float exitingDelta = 1 / _exitingTime;
         // while (Physics2D.CircleCast(transform.position, 0.5f, Vector3.up, 0.5f, _learnableLayer.value))

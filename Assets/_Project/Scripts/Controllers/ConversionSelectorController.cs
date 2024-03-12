@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class ConversionSelectorController : MonoBehaviour
 {
     [SerializeField] private LearnObject _playerInstance;
+    [SerializeField] private LearnedObjectData _learnedObjects;
     [SerializeField] private float _openCloseTime = 0.6f;
     [SerializeField] private float _selectingTime = 0.2f;
     [SerializeField] private UnityEvent _onOpenSelectMenu;
@@ -15,17 +16,17 @@ public class ConversionSelectorController : MonoBehaviour
     private int _selection;
     [SerializeField] private bool _toggleLock = false;
     public int Selection { get => _selection; }
-    public LearnableObjectData GetCurrentLearnableData() => (_selection == 0) ? _playerInstance.LearnableData : _playerInstance.LearnedObjects[_selection - 1];
+    public LearnableObjectData GetCurrentLearnableData() => (_selection == 0) ? _playerInstance.LearnableData : _learnedObjects.LearnedObjects[_selection - 1];
     public LearnableObjectData GetLearnableDataByIndex(int indexSelection) 
     {
-        if (_playerInstance.LearnedObjects.Count > 0)
+        if (_learnedObjects.LearnedObjects.Count > 0)
         { 
-            if (indexSelection > _playerInstance.LearnedObjects.Count) indexSelection = 0;
-            else if (indexSelection < 0) indexSelection = _playerInstance.LearnedObjects.Count;
+            if (indexSelection > _learnedObjects.LearnedObjects.Count) indexSelection = 0;
+            else if (indexSelection < 0) indexSelection = _learnedObjects.LearnedObjects.Count;
         }
         else indexSelection = 0;
 
-        return (indexSelection == 0) ? _playerInstance.LearnableData : _playerInstance.LearnedObjects[indexSelection - 1];
+        return (indexSelection == 0) ? _playerInstance.LearnableData : _learnedObjects.LearnedObjects[indexSelection - 1];
     }
 
     private bool _canToggleMenu = true, _canSelect = false;
@@ -85,10 +86,10 @@ public class ConversionSelectorController : MonoBehaviour
         
         int newSelection = _selection + deltaSelection;
         _onSelectionDelta?.Invoke(deltaSelection);
-        if (_playerInstance.LearnedObjects.Count > 0)
+        if (_learnedObjects.LearnedObjects.Count > 0)
         { 
-            if (newSelection > _playerInstance.LearnedObjects.Count) newSelection = 0;
-            else if (newSelection < 0) newSelection = _playerInstance.LearnedObjects.Count;
+            if (newSelection > _learnedObjects.LearnedObjects.Count) newSelection = 0;
+            else if (newSelection < 0) newSelection = _learnedObjects.LearnedObjects.Count;
         }
         else newSelection = 0;
         _onSelectionStateChange?.Invoke(_canToggleMenu);

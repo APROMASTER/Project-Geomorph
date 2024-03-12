@@ -41,7 +41,7 @@ public class PausableBody2D : MonoBehaviour
         _savedVelocity = _body.velocity;
         _body.Sleep();
         _body.simulated = false;
-        Debug.Log(name + "'s rigidbody is asleep!");
+        // Debug.Log(name + "'s rigidbody is asleep!");
     }
 
     private void WakeBody()
@@ -51,6 +51,6 @@ public class PausableBody2D : MonoBehaviour
         _body.simulated = true;
         _body.WakeUp();
         _body.velocity = _savedVelocity;
-        Debug.Log(name + "'s rigidbody wake up!");
+        // Debug.Log(name + "'s rigidbody wake up!");
     }
 }

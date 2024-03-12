@@ -71,6 +71,9 @@
         },
         {
             "m_Id": "c876f067c7234191a3a175ff94e8eb08"
+        },
+        {
+            "m_Id": "8346b6e4d8e84604a5433c251ef39484"
         }
     ],
     "m_GroupDatas": [],
@@ -301,6 +304,9 @@
             },
             {
                 "m_Id": "1522a73802724683baf8ec12bcca7ec3"
+            },
+            {
+                "m_Id": "8346b6e4d8e84604a5433c251ef39484"
             }
         ]
     },
@@ -1170,6 +1176,40 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "8346b6e4d8e84604a5433c251ef39484",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.AlphaClipThreshold",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "90f362e26d694c369706afca6fb1b479"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.AlphaClipThreshold"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "8412859b59b0421395930809fa331ae5",
     "m_Id": 0,
@@ -1265,6 +1305,21 @@
 }
 
 {
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "90f362e26d694c369706afca6fb1b479",
+    "m_Id": 0,
+    "m_DisplayName": "Alpha Clip Threshold",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "AlphaClipThreshold",
+    "m_StageCapability": 2,
+    "m_Value": 0.5,
+    "m_DefaultValue": 0.5,
+    "m_Labels": []
+}
+
+{
     "m_SGVersion": 1,
     "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
     "m_ObjectId": "91bd2b40fd664135b2046c8d74880a66",
@@ -1300,7 +1355,7 @@
     "m_ActiveSubTarget": {
         "m_Id": "d155c3f94f0a481898c89e067f84d159"
     },
-    "m_AllowMaterialOverride": false,
+    "m_AllowMaterialOverride": true,
     "m_SurfaceType": 1,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,

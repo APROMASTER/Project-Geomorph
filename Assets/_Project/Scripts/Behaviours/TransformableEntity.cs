@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TransformableEntity : MonoBehaviour
 {
-    public LearnableObjectData LearnableData { get; set; }
+    [SerializeField] private LearnableObjectData _learnableData;
+    public LearnableObjectData LearnableData { get => _learnableData; }
     public Collider2D Collider2D { get => GetComponent<Collider2D>(); }
 }

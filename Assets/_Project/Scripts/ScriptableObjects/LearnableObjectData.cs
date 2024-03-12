@@ -7,6 +7,6 @@ public class LearnableObjectData : ScriptableObject
 
     private void OnEnable() 
     {
-        LearnedEntity.LearnableData = this;
+        //LearnedEntity.LearnableData = this;
     }
 }
