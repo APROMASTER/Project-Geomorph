@@ -6,10 +6,10 @@ public class PauseController : MonoBehaviour
 
     private void Update() // POSSIBLE CHANGE IF USING Input System
     {
-        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        // if (!Input.GetKeyDown(KeyCode.Escape)) return;
 
-        if (_isPaused) Resume();
-        else Pause();
+        // if (_isPaused) Resume();
+        // else Pause();
     }
 
     public void Pause()

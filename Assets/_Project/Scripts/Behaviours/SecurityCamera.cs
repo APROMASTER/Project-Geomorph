@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class SecurityCamera : MonoBehaviour
 {
     [SerializeField] private List<LearnableObjectData> _targetFilters = new();
-    [SerializeField] private bool _followWhenTarget;
+    [SerializeField] private bool _followWhenTarget, _doIdleAnimation;
     [SerializeField] private AnimationCurve _rotationAnimation = AnimationCurve.Linear(0, 0, 1, 1);
     [SerializeField] private float _animationDuration = 1, _checkDistance = 5, _checkAmplittude = 1;
     [SerializeField, Min(3)] private int _checkSamples;
@@ -27,7 +27,7 @@ public class SecurityCamera : MonoBehaviour
 
         if (_target == null) 
         {
-            DoIdleAnimation();
+            if (_doIdleAnimation) DoIdleAnimation();
             //return;
         }
         else

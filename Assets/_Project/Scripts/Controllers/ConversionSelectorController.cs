@@ -107,4 +107,9 @@ public class ConversionSelectorController : MonoBehaviour
         _onSelectionStateChange?.Invoke(_canToggleMenu);
         yield return null;
     }
+
+    public void ResetSelection()
+    {
+        _selection = 0;
+    }
 }

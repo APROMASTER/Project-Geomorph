@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InstaKiller
   - Learnable
+  - Box
   layers:
   - Default
   - TransparentFX

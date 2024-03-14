@@ -9,7 +9,9 @@ public class LevelSelectorController : MonoBehaviour
     [SerializeField] TMP_Text _levelText;
     [SerializeField] Image _leftArrow;
     [SerializeField] Image _rightArrow;
+    [SerializeField] int _releaseLevelIndex;
     [SerializeField] UnityEvent<int> _onLevelSelect;
+    [SerializeField] UnityEvent _onRelease;
     private int _currentSelection;
     private bool _selectLock;
 
@@ -37,7 +39,8 @@ public class LevelSelectorController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E))
         {
-            EnterLevel();
+            if (_currentSelection != _releaseLevelIndex) EnterLevel();
+            else _onRelease?.Invoke();
         }
     }
 

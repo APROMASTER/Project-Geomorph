@@ -106,4 +106,28 @@ public class PlayerConversionController : MonoBehaviour
             _body.simulated = true;
         }
     }
+
+    public void ResetPlayer()
+    {
+        if (_currentInstance.TryGetComponent(out TransformableEntity transformableEntity))
+        {
+            if (transformableEntity.LearnableData != _playerInstance.LearnableData)
+            {
+                Destroy(_currentInstance);
+                _currentInstance = _playerInstance.gameObject;
+                _currentForm = _playerInstance.LearnableData;
+                _currentInstance.SetActive(true);
+                _currentInstance.transform.localScale = Vector3.one;
+                _camera.SetTarget(_currentInstance.transform);
+                _camera.ResetPosition();
+                _onConversionEnd.Invoke();
+            }
+        }
+
+        if (_currentInstance.TryGetComponent(out Rigidbody2D _body))
+        {
+            _body.isKinematic = false;
+            _body.simulated = true;
+        }
+    }
 }

@@ -12,7 +12,13 @@ public class SideScrollerCamera : MonoBehaviour
 
     void Start()
     {
+        ResetPosition();
+    }
+
+    public void ResetPosition()
+    {
         _finalPosition = _target.position;
+        transform.position = new Vector3(_target.position.x, _target.position.y, transform.position.z);
     }
 
     void Update()

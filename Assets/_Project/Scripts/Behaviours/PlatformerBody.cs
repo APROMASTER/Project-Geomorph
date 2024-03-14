@@ -70,10 +70,10 @@ public class PlatformerBody : MonoBehaviour
         {
 			_fallVelocity = jumpHeight * _gravityScale * -Physics2D.gravity.normalized;
 		}
-        else if (_onWall)
-        {
-            _fallVelocity = jumpHeight * _gravityScale * (-Physics2D.gravity.normalized + (_wallNormal * 0.6f)).normalized;
-        }
+        // else if (_onWall)
+        // {
+        //     _fallVelocity = jumpHeight * _gravityScale * (-Physics2D.gravity.normalized + (_wallNormal * 0.6f)).normalized;
+        // }
     }
 
     public void DoArtificialJump(float jumpHeight)

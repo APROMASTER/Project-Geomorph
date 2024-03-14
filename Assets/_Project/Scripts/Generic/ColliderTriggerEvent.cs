@@ -13,8 +13,9 @@ public class Collider2DTriggerEvent : MonoBehaviour
 
     void Update() 
     {
-        if (_staying && _eventType != EventType.Noone) return;
+        if (!_staying && _eventType != EventType.Noone) return;
         _onRaised?.Invoke();
+        _staying = false;
     }
     
     private void OnTriggerEnter2D(Collider2D other) 

@@ -99,11 +99,13 @@ GameObject:
   - component: {fileID: 6456564549650894960}
   - component: {fileID: 6515716304592115344}
   - component: {fileID: 8419940082408777273}
+  - component: {fileID: 5676243102422128250}
   - component: {fileID: 6342041035077267392}
   - component: {fileID: 2631324582827729917}
+  - component: {fileID: 6230469013879553459}
   m_Layer: 0
   m_Name: PlayerDefault
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +124,7 @@ Transform:
   m_Children:
   - {fileID: 7156140355540971101}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1239320482104046694
 MeshFilter:
@@ -183,7 +185,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 3396445016727359314}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e111f49c33af7f3468cb2d857f4eb800, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -306,6 +308,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _learnableData: {fileID: 11400000, guid: 98879964ffdd76a4d9c820cbe20aff46, type: 2}
+--- !u!114 &5676243102422128250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396445016727359314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbdd5fe2b449d3488566a496558b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onlyEventDriven: 1
+  _onSleep:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6456564549650894960}
+        m_TargetAssemblyTypeName: PlatformerBody, Assembly-CSharp
+        m_MethodName: Sleep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onWake:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6456564549650894960}
+        m_TargetAssemblyTypeName: PlatformerBody, Assembly-CSharp
+        m_MethodName: WakeUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6342041035077267392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _learnableData: {fileID: 11400000, guid: 98879964ffdd76a4d9c820cbe20aff46, type: 2}
-  LearnedObjects: []
+  _learnedObjects: {fileID: 11400000, guid: 3d4b59f087ed4444e9af9e6f1788948f, type: 2}
   _enteringTime: 0.3
   _learningTime: 1
   _exitingTime: 0.1
@@ -392,18 +437,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
   _onLearning:
     m_PersistentCalls:
@@ -497,4 +530,39 @@ MonoBehaviour:
           m_FloatArgument: 5
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &6230469013879553459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396445016727359314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d866f71cc37b9164984735e7f405690c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  currentHealth: 1
+  OnReceiveDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReceiveHealth:
+    m_PersistentCalls:
+      m_Calls: []
+  OnZeroHealth:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 3fd83049b5ccee24c99fe015d8aac0af, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2

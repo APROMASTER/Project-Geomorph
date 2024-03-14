@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Checkpoint : MonoBehaviour
 {
-    [SerializeField] private Transform _respawnPosition; 
-    [SerializeField] private string _playerTag = "Player";
+    [SerializeField] private Transform _respawnPosition;
     public Transform RespawnPosition { get => _respawnPosition; }
+    [SerializeField] private UnityEvent _onCheckpointReached;
+    [SerializeField] private UnityEvent _onCheckPointReturn;
     
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.CompareTag(_playerTag))
+        if (other.TryGetComponent(out TransformableEntity transformableEntity))
         {
-            GameEvents.Instance.CheckpointReach(this);
+            _onCheckpointReached?.Invoke();
         }
+    }
+
+    public void ReturnProgress()
+    {
+        _onCheckPointReturn?.Invoke();
     }
 }

@@ -1,24 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CheckpointController : MonoBehaviour
 {
-    [SerializeField] private PlayerPhysicsTemp _playerObject;
+    [SerializeField] private Transform _playerInstance;
     [SerializeField] private Checkpoint _lastCheckpoint;
     [SerializeField] private float _respawnDelaySeconds = 0.5f;
-
-    private void Start() 
-    {
-        GameEvents.Instance.OnCheckpointReached += SetLastCheckpoint;
-        GameEvents.Instance.OnPlayerDead += RespawnPlayer;
-    }
-
-    private void OnDestroy()
-    {
-        GameEvents.Instance.OnCheckpointReached -= SetLastCheckpoint;
-        GameEvents.Instance.OnPlayerDead -= RespawnPlayer;
-    }
+    [SerializeField] private UnityEvent _onPlayerDead;
+    [SerializeField] private UnityEvent _onPlayerRevive;
 
     public void SetLastCheckpoint(Checkpoint checkpoint)
     {
@@ -28,8 +18,11 @@ public class CheckpointController : MonoBehaviour
     public void RespawnPlayer() => StartCoroutine(RespawnProcess());
     public IEnumerator RespawnProcess()
     {
+        _onPlayerDead?.Invoke();
+        _playerInstance.position = _lastCheckpoint.RespawnPosition.position;
+        _lastCheckpoint.ReturnProgress();
         yield return new WaitForSeconds(_respawnDelaySeconds);
-        _playerObject.BodyPosition = _lastCheckpoint.RespawnPosition.position;
-        _playerObject.Revive();
+        
+        _onPlayerRevive?.Invoke();
     }
 }
