@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - InstaKiller
+  - Learnable
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -11,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Learnable
+  - Converted
+  - Background
+  - Filtered
   - 
   - 
   - 
